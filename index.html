@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Opto Workplace — Class Management System</title>
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
       rel="stylesheet"
@@ -86,6 +87,36 @@
         font-size: 11px;
         color: var(--text3);
         margin-top: 2px;
+      }
+
+      .floating-menu {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: wheat;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        z-index: 1000;
+        padding: 10px;
+        box-shadow: 0px 1px 10px rgba(43, 43, 34, 0.545);
+        transition: 1s;
+        display: none;
+      }
+
+      .line {
+        padding: 2px;
+        background-color: black;
+        width: 30px;
+        height: 2px;
+        border-radius: 10px;
+        margin-top: 4px;
+      }
+
+      .floating-menu:hover {
+        transform: scale(1.2);
+        transition: 1s;
+        box-shadow: 0px 1px 10px rgba(4, 73, 30, 0.57);
       }
 
       .nav-section {
@@ -722,24 +753,40 @@
         border-radius: 10px;
       }
 
-      @media (max-width: 700px) {
+      @media (max-width: 768px) {
+        .floating-menu {
+          display: block;
+        }
         .sidebar {
+          position: fixed;
+          left: 0;
+          transform: translateX(-100%);
+          height: 90%;
+          width: 40vh;
+          z-index: 900;
+          box-shadow: 20px 0 50px rgba(0, 0, 0, 0.1);
+          -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+        }
+        .sidebar.open {
+          transform: translateX(200);
+        }
+        .topbar {
+          padding: 10px;
+        }
+        .page-container {
+          padding: 16px;
+        }
+        .nav-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 950;
           display: none;
+          backdrop-filter: blur(2px);
         }
-        .form-grid,
-        .form-grid.cols3,
-        .grid2,
-        .grid3 {
-          grid-template-columns: 1fr;
-        }
-        .form-group.span2 {
-          grid-column: span 1;
-        }
-        .stat-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .tt-grid {
-          overflow-x: auto;
+        .nav-overlay.active {
+          display: block;
         }
       }
     </style>
@@ -747,7 +794,7 @@
   <body>
     <div class="app">
       <!-- SIDEBAR -->
-      <nav class="sidebar">
+      <nav class="sidebar" id="sidebar">
         <div class="sidebar-logo">
           <h1>Opto Workplace</h1>
           <p>Class Management System</p>
@@ -880,14 +927,22 @@
           </div>
         </div>
       </nav>
+      <!-- floating menu for mobiles -->
+      <div class="floating-menu" id="mobile-menu">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
 
       <!-- MAIN -->
       <div class="main">
+        <header class="topbar">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <h2 id="pageTitle">Dashboard</h2>
+          </div>
+          <div id="topbarActions"></div>
+        </header>
         <!-- TOPBAR -->
-        <div class="topbar">
-          <h2 id="pageTitle">Dashboard</h2>
-          <div class="topbar-actions" id="topbarActions"></div>
-        </div>
 
         <!-- DASHBOARD -->
         <div class="page active" id="page-dashboard">
@@ -1474,6 +1529,16 @@
     </div>
 
     <script>
+      const menu = document.getElementById("mobile-menu");
+      const sidebar = document.getElementById("sidebar");
+      menu.addEventListener("click", () => {
+        sidebar.classList.add('open');
+        sidebar.style.transform =
+          sidebar.style.transform === "translateX(100px)"
+            ? "translateX(-300px)"
+            : "translateX(100px)";
+      });
+
       // ── State ──────────────────────────────────────────────
       const STATE_KEY = "Opto Workplace State v1";
 
@@ -2680,52 +2745,6 @@
         tempAtt = {};
         renderAttendance();
       });
-    </script>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA2HGsBDtPzkCVFhtUG7zBTEf0u3LXSJwE",
-  authDomain: "opto-engine.firebaseapp.com",
-  databaseURL: "https://opto-engine-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "opto-engine",
-  storageBucket: "opto-engine.firebasestorage.app",
-  messagingSenderId: "839879616945",
-  appId: "1:839879616945:web:90f7727fdc46589ecd7590",
-  measurementId: "G-MX62S2VJX1"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyA2HGsBDtPzkCVFhtUG7zBTEf0u3LXSJwE",
-        authDomain: "opto-engine.firebaseapp.com",
-        databaseURL:
-          "https://opto-engine-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "opto-engine",
-        storageBucket: "opto-engine.firebasestorage.app",
-        messagingSenderId: "839879616945",
-        appId: "1:839879616945:web:90f7727fdc46589ecd7590",
-        measurementId: "G-MX62S2VJX1",
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
     </script>
   </body>
 </html>
