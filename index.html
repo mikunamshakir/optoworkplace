@@ -1536,12 +1536,12 @@
     <script>
       const menu = document.getElementById("mobile-menu");
       const sidebar = document.getElementById("sidebar");
-      menu.addEventListener("click", () => {
+      menu.addEventListener("focus", () => {
         sidebar.classList.add('open');
-        sidebar.style.transform =
-          sidebar.style.transform === "translateX(100px)"
-            ? "translateX(-300px)"
-            : "translateX(100px)";
+      });
+
+      menu.addEventListener('blur', ()=>{
+        menu.classList.remove('open');
       });
 
       // ── State ──────────────────────────────────────────────
