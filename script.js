@@ -1094,7 +1094,7 @@ function exportReceiptPDF() {
   doc.setTextColor(232, 196, 104);
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
-  doc.text(state.classInfo.name, 105, 16, { align: "center" });
+  doc.text("", 105, 16, { align: "center" });
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(255, 255, 255);
