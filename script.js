@@ -814,7 +814,7 @@ function pdfHeader(doc, title) {
   doc.setTextColor(232, 196, 104);
   doc.setFontSize(16);
   doc.setFont("helvetica", "bold");
-  doc.text("Opto Workplace", 14, 12);
+  doc.text("", 14, 12);
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(255, 255, 255);
@@ -1130,13 +1130,13 @@ function exportReceiptPDF() {
   doc.setTextColor(100, 100, 100);
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
-  doc.text("Thank you for your timely payment.", 105, y + 24, {
+  doc.text("Thank you for your timely payment.\n THIS IS A SYSTEM GENERATED RECEIPT, HENCE REQUIRES NO SIGNATURE FOR ISSUANCE.", 105, y + 24, {
     align: "center",
   });
   doc.text("________________________", 50, y + 45);
   doc.text("________________________", 130, y + 45);
-  doc.text("Student Signature", 58, y + 50);
-  doc.text("Authorized Signature", 135, y + 50);
+  doc.text("CASHIER \n  (STAMP BY BANK ONLY)", 58, y + 50);
+  doc.text("ACCOUNTANT \n  (STAMP BY UNIVERSTY ONLY)", 135, y + 50);
   doc.save(`receipt-${s?.name || "student"}-${month}.pdf`);
 }
 
