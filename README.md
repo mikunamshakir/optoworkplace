@@ -1,12 +1,12 @@
-# Opto Workplace
+# CRMS-OPTO - A Classroom Management System Build By Muhammad Asim Shakir
 
 A lightweight, browser-based class management system for teachers and small academies. Track students, attendance, lectures, timetables, and fees — all in one dashboard, with zero backend required.
 
 Built with a soft-UI **neumorphic "chalkboard"** design: deep graphite-green surfaces molded by light, with a single warm chalk-yellow accent.
 
-![Made with HTML, CSS, JS](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS-e8c468)
-![No backend required](https://img.shields.io/badge/backend-none%20required-6b7280)
-![License](https://img.shields.io/badge/license-MIT-a9b0a3)
+![Made with HTML, CSS, JS]()
+![No backend required]()
+![License]()
 
 ---
 
@@ -24,9 +24,9 @@ Built with a soft-UI **neumorphic "chalkboard"** design: deep graphite-green sur
 
 ---
 
-## 🗂️ Project Structure
+## 🗂️ Project Structure 
 
-```
+```txt
 opto-workplace/
 ├── index.html   # App structure — sidebar, pages, modals
 ├── style.css    # Neumorphic design system (variables, components, responsive rules)
